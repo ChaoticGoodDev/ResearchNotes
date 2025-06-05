@@ -4,7 +4,7 @@
 - Some of the content is material from my college notes - others were pulled/updated via research.
 - Links will be provided.
 
-# Class 1 - The Basics
+# The Basics
 
 ## General History of languages from '70s to 2010s
 - 40s: Assembly
@@ -76,11 +76,62 @@
     - Return values
     - `return N;`
 
-### Evaluation Strategy
+### Equality
+- [A good example on different types of equality](https://stackoverflow.com/questions/16299246/what-is-the-difference-between-eq-eqv-equal-and-in-scheme)
+    - Pointer Equality
+        - Points to same location in memory
+        - Equality by Reference
+    - Content Equality 
+        - Both values are the same
+        - Equality by Value
+
+## [Type-System](https://en.wikipedia.org/wiki/Type_system)
+- TODO FILL THIS! Research this in more depth when time permits.
+
+### [Type-Checking](https://en.wikipedia.org/wiki/Type_system#Type_checking)
+- 4 Main terms:
+    - Static vs Dynamic
+        - Static
+            - Compile-time
+            - Compiler analyzes code and keeps track of types
+        - Dynamic
+            - Run-time
+            - Example:
+                ``` 
+                A = 5 #interprets as an int type
+                b = 10 #interprets as an int type
+                c = "hello" #interprets as a string type
+                ```
+                - Given the preceding, it determines each line's type on execution in runtime.
+                - Checks if two types are compatible on comparison/evaluation of a statement/expression
+    - Strong vs Weak
+        - Strong
+            - Enforced Typechecking
+        - Weak
+            - Can subvert Type-checking
+                - Javascript - not full weak, but still very weak.
+- Examples from different languages:
+    - Java: Static/Strong
+    - C: Static/Strong
+    - Scheme: Dynammic/Weak
+    - Python: Static *and* Dynamic /Weak
+        - (Dynamically typed with optional static that doesn't affect runtime)
+
+
+### [Evaluation Strategy](https://en.wikipedia.org/wiki/Evaluation_strategy)
 - Set of rules for evaluating expressions
-    - General Types:
+    - General Strategies:
         - [Lazy Evaluation (call-by-need)](https://en.wikipedia.org/wiki/Lazy_evaluation)
+            - Delays evaluation of an expression until value is needed.
+            - Benefits:
+                - Define control-flow as abstractives instead of primitives
+                - Ability to define potenitlaly infinite data structures
+                - Define partly-defined data structures where some elements are errors
+                    - Useful in prototyping
+            - Used in Functional Programming Languages
         - [Partial Evaluation](https://en.wikipedia.org/wiki/Partial_evaluation)
+            - A technique for different types of program optimization via specialization
+            - Ex. Transforms code into optimized code by precomputing static input at compile time.
         - [Remote Evaluation](https://en.wikipedia.org/wiki/Remote_evaluation)
             - Transmitting executable software code from client system to server system, and results sent back to client system from server.
         - [Short-circuit evaluation](https://en.wikipedia.org/wiki/Short-circuit_evaluation)
