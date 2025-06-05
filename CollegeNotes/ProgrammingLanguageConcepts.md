@@ -76,11 +76,29 @@
     - Return values
     - `return N;`
 
+### Evaluation Strategy
+- Set of rules for evaluating expressions
+    - General Types:
+        - [Lazy Evaluation (call-by-need)](https://en.wikipedia.org/wiki/Lazy_evaluation)
+        - [Partial Evaluation](https://en.wikipedia.org/wiki/Partial_evaluation)
+        - [Remote Evaluation](https://en.wikipedia.org/wiki/Remote_evaluation)
+            - Transmitting executable software code from client system to server system, and results sent back to client system from server.
+        - [Short-circuit evaluation](https://en.wikipedia.org/wiki/Short-circuit_evaluation)
+            - Aka Minimal Evaluation
+            - Semantic of some boolean operators
+                - Second argument is executed only if the first argument does not suffice to determine the value of the expressionn
+                    - When `False AND True`, overall value must be `False`.
+                    - When `True OR False`, overall value must be `True`.
+    
+
+
+## Misc Basics
+
 ### Dangling Pointer
 - Address of local var and return
     - Dangerous!
-    - In stack frame, but lost
-    - data was lost/deallocated
+    - In stack frame - so in memory - but correct/normal access is lost
+    - Caused by deallocation
     - When calling a dangling pointer, no longer allocated to reference
         ``` C++
         *P = (int x ) malloc(SizeOf(int)); // Goes onto heap
@@ -95,6 +113,38 @@
         ```
         - This can further be complicated by [Endianness](https://en.wikipedia.org/wiki/Endianness) (Little vs Big)
             - Intel = Little Endian
+    - Avoid reading/writing to a pointer after de-referencing
+    - To prevent this issue as well as security, some systems zero out data after freeing
+        - This manifests bugs faster if you have a dangling pointer (Oh no, I lost my data!)
+
+### Undefined vs Unspecified Behavior
+- [Undefined Behavior](https://en.wikipedia.org/wiki/Undefined_behavior)
+    - When a program contains or is executing code for which it's programming language specs do not mandate specific requirements.
+    - Nickname: Nasal Demons
+    - Allowed in some languages
+    - Used to be used by developers for optimization - code written to take advantage of compiler and platforms supported (Optimized for compiler/platform.)
+    - In more modern situations, Undefined behavior usually represents unambiguous bugs in code.
+        - Ex. Indexing an array outside of it's bounds
+    - Runtime assumes undefined behavior never happens. It does not check against the conditions
+    - Example:
+        - At the start of your program:
+            - `n=0`
+        - You then make 2 threads.
+            1. `n = 1`
+            2. `while(n==0) { ... }`
+        - Compiles into the following:
+        ```
+        if(n==0){
+            while(<InsertLoopHere>)
+        }
+        ```
+        - Your code will first be n = 0, and then on thread 1 be n = 0 and on the other undeclared
+        - You will have a caveat bug - optimized into existence by compiler.
+        - The above code should loop forever.
+- [Unspecified Behavior](https://en.wikipedia.org/wiki/Unspecified_behavior)
+    - When the final executable produced has different behavior when compiled on a different compiler.
+
+
 
 # Interesting Side-notes
 
