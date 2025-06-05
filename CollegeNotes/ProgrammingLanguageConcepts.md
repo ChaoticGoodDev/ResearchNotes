@@ -97,7 +97,7 @@
         - Dynamic
             - Run-time
             - Example:
-                ``` 
+                ``` Python
                 A = 5 #interprets as an int type
                 b = 10 #interprets as an int type
                 c = "hello" #interprets as a string type
@@ -184,9 +184,11 @@
             1. `n = 1`
             2. `while(n==0) { ... }`
         - Compiles into the following:
-        ```
-        if(n==0){
+        ``` C++
+        if(n==0):
+        {
             while(<InsertLoopHere>)
+            {...}
         }
         ```
         - Your code will first be n = 0, and then on thread 1 be n = 0 and on the other undeclared
