@@ -86,7 +86,6 @@
         - Equality by Value
 
 ## [Type-System](https://en.wikipedia.org/wiki/Type_system)
-- TODO FILL THIS! Research this in more depth when time permits.
 
 ### [Type-Checking](https://en.wikipedia.org/wiki/Type_system#Type_checking)
 - 4 Main terms:
@@ -117,6 +116,21 @@
     - Python: Static *and* Dynamic /Weak
         - (Dynamically typed with optional static that doesn't affect runtime)
 
+#### [Parametric Polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism)
+- Allows a single piece of code to be given a "generic" type
+    - Uses variables in place of actual types
+    - instantiates types as needed
+    - Parametric polymorphic functions types are also known as generic functions and generic datatypes.
+    - Interpreted by interpreter/compiler at runtime/compilation.
+
+#### Mutable vs Immutable
+- **Mutable**
+    - Something is mutable when it can be changed
+    - Is not generally considered thread-safe
+- **Immutable**
+    - Something is mutable when it cannot be changed (such as a constant)
+    - Is generally considered thread-safe
+- Some languages are immutable, some are not.
 
 ### [Evaluation Strategy](https://en.wikipedia.org/wiki/Evaluation_strategy)
 - Set of rules for evaluating expressions
@@ -140,8 +154,89 @@
                 - Second argument is executed only if the first argument does not suffice to determine the value of the expressionn
                     - When `False AND True`, overall value must be `False`.
                     - When `True OR False`, overall value must be `True`.
-    
 
+#### Pass by Reference vs Pass by Value
+- Some languages default to pass-by-value and others pass-by-reference. C++, for example, uses pass-by-value unless you specify it to pass by reference.
+- **Pass by Reference**
+    - When the following occurs in C++:
+    ``` C++
+    //Swaps param1 and param2 values
+    void testFunction(int &param1, int &param2){
+        int temp = param1;
+        param1 = param2;
+        param2 = temp;
+    }
+
+    int main(void){
+        int a = 5
+        int b = 10
+        testFunction(a, b);
+        printf("a is now %d and B is now %d\n", a, b)
+        return 0;
+    }
+    ```
+    - Before `testFunction(a,b)`, their values are 5 and 10 respectively.
+    - While running testFunction, it is passed the references to the variables a and b from main - so when they are modified in testFunction, it is modifying the values in a and b when it's swapping param1 and param2 values.
+    - Thus, when it hits the printf, it will print the following:
+        - a is now 10 and b is now 5
+    - reference: [UCL](https://github-pages.ucl.ac.uk/research-computing-with-cpp/02cpp1/sec02PassByValueOrReference.html)
+- **Pass by Value**
+    - When the following occurs in C++:
+    ``` C++
+    //Swaps param1 and param2 values
+    void testFunction(int param1, int param2){
+        int temp = param1;
+        param1 = param2;
+        param2 = temp;
+    }
+
+    int main(void){
+        int a = 5
+        int b = 10
+        testFunction(a, b);
+        printf("a is now %d and B is now %d\n", a, b)
+        return 0;
+    }
+    ```
+    - Before `testFunction(a,b)`, their values are 5 and 10 respectively.
+    - While running testFunction, it is passed the values  from main - so when they are modified in testFunction, it is modifying the values passed in param1 and param2, but not the values of a and b.
+    - Thus, when it hits the printf, it will print the following:
+        - a is now 5 and b is now 10
+    - reference: [UCL](https://github-pages.ucl.ac.uk/research-computing-with-cpp/02cpp1/sec02PassByValueOrReference.html)
+
+### Function vs Method
+- Some languages only have one or the other.
+- **Function**
+    - Reusable
+    - Performs specific task
+    - Can be called independently
+    - [Higher-order Function](https://en.wikipedia.org/wiki/Higher-order_function)
+        - Main function calls other function.
+        - Both run simultaneously, and interact more complexly.
+        - Handing over function can call back to the original main function before it returns.
+        - Examples: Map
+    - First-order Function
+        - Main function calls other function, then function runs and passes result.
+- **Method**
+    - Function-like, but associated with a class or object
+    - Must be called with class or object
+
+## [Recursion](https://en.wikipedia.org/wiki/Recursion)
+- See Recursion
+    - Head vs Tail Recursion
+        - Tail Recursion
+            - Return without modifying
+            - Reduces overhead
+            - Modifying it as it goes
+
+
+## Functional Programming vs Object Oriented Programming
+- [**Functional Programming**](https://en.wikipedia.org/wiki/Functional_programming)
+    - Build program using functions.
+- **Object Oriented Programming**
+    - Language organized around objects/classes
+
+### First-order Function vs 
 
 ## Misc Basics
 
@@ -198,7 +293,12 @@
     - When the final executable produced has different behavior when compiled on a different compiler.
 
 
-
 # Interesting Side-notes
 
 - F# = Microsoft version of Java
+
+## Scala
+- Expression Oriented
+
+## C++
+- Pass-by-reference
